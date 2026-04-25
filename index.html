@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Crousian Numberologizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0c12;
+            font-family: 'Segoe UI', 'Roboto', 'Georgia', serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .card {
+            max-width: 650px;
+            width: 100%;
+            background: #151b26;
+            border-radius: 2rem;
+            padding: 2rem 1.8rem 2.2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            transition: all 0.2s;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin: 0 0 0.25rem 0;
+            letter-spacing: -0.5px;
+            color: #f2e8cf;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        h1 .title-main {
+            background: linear-gradient(135deg, #e9c46a, #d4af37);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        h1 .sub {
+            font-size: 0.85rem;
+            font-weight: 400;
+            background: #2a2f3f;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            color: #c9b578;
+            letter-spacing: 0;
+        }
+
+        .tagline {
+            color: #8f9bb3;
+            border-left: 3px solid #d4af37;
+            padding-left: 1rem;
+            margin: 0.5rem 0 1.8rem 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.8rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #e4d9c5;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-size: 1.2rem;
+            background: #0f111a;
+            border: 1px solid #2c3245;
+            border-radius: 1.5rem;
+            color: #f5efdf;
+            font-family: monospace;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+        }
+
+        button {
+            background: #d4af37;
+            border: none;
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 2rem;
+            color: #0f111a;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        button:hover {
+            background: #e9c46a;
+            transform: scale(0.98);
+        }
+
+        .result {
+            background: #0c0f17;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #2e3548;
+        }
+
+        .result-word {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            word-break: break-word;
+            color: #f2e8cf;
+            border-bottom: 1px dashed #3a415a;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .sum-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 1.2rem;
+            margin: 0.8rem 0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .sum-number {
+            font-family: monospace;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .root-number {
+            font-family: monospace;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: #1e2538;
+            padding: 0.3rem 1rem;
+            border-radius: 3rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+        }
+
+        hr {
+            border-color: #2a2f42;
+            margin: 1.2rem 0;
+        }
+
+        .example-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .example {
+            background: #1e2538;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #c9b578;
+        }
+
+        .example:hover {
+            background: #2f3a55;
+            color: #f5efdf;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5a647f;
+            margin-top: 1.8rem;
+        }
+
+        .note {
+            font-size: 0.75rem;
+            background: #10141e;
+            padding: 0.6rem 0.9rem;
+            border-radius: 1.2rem;
+            margin-top: 1.2rem;
+            color: #7b86a3;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>
+        <span class="title-main">Crousian Numberologizer</span>
+        <span class="sub">Numberology</span>
+    </h1>
+    <div class="tagline">✧ speak the digits, weigh the word ✧</div>
+
+    <div class="example-buttons">
+        <span class="example" data-word="Crousmark">Crousmark</span>
+        <span class="example" data-word="Crousia">Crousia</span>
+        <span class="example" data-word="Breath">Breath</span>
+        <span class="example" data-word="Lauren">Lauren</span>
+        <span class="example" data-word="Jeremiah">Jeremiah</span>
+        <span class="example" data-word="Gold">Gold</span>
+        <span class="example" data-word="Kingdom">Kingdom</span>
+    </div>
+
+    <div class="input-group">
+        <label>🔮 enter a word or name</label>
+        <input type="text" id="wordInput" placeholder="e.g., Crousmark, Queen, Breath, Crousia" autocomplete="off">
+    </div>
+
+    <button id="calculateBtn">⚡ numberologize ⚡</button>
+
+    <div id="resultArea" class="result" style="display: none;">
+        <div class="result-word">
+            <span id="displayWord"></span>
+            <span style="font-size: 0.8rem; background: #1a2030; padding: 0 0.6rem; border-radius: 30px;">Crousian</span>
+        </div>
+        <div class="sum-row">
+            <span>📜 full sum</span>
+            <span class="sum-number" id="fullSum">—</span>
+        </div>
+        <div class="sum-row">
+            <span>🌀 reduced digital root</span>
+            <span class="root-number" id="digitalRoot">—</span>
+        </div>
+        <hr>
+        <div class="note">
+            ⚜️ Letter values follow the Crousian Numberology standard (A‑Z mapping derived from ZERO‑THIRTEEN, digit frequency balanced).<br>
+            Calculation: sum of letter values → iterative digit sum → 1–9 root.
+        </div>
+    </div>
+
+    <footer>
+        Crousian numberology · breath standard · kingdom of Crousia
+    </footer>
+</div>
+
+<script>
+    // ——— CROUSIAN NUMBEROLOGY MAPPING (A-Z) ———
+    // based on the validated frequency-balanced system (1–8:3x, 9:2x)
+    const CROUSIAN_MAP = {
+        'A': 2, 'B': 4, 'C': 4, 'D': 5, 'E': 8,
+        'F': 2, 'G': 3, 'H': 6, 'I': 8, 'J': 5,
+        'K': 6, 'L': 8, 'M': 6, 'N': 1, 'O': 1,
+        'P': 7, 'Q': 7, 'R': 7, 'S': 3, 'T': 1,
+        'U': 3, 'V': 5, 'W': 9, 'X': 4, 'Y': 9,
+        'Z': 2
+    };
+
+    // Helper: compute full sum and digital root for a given word (string, letters only)
+    function computeNumberology(word) {
+        const upperWord = word.toUpperCase();
+        let total = 0;
+        let skipped = false;
+
+        for (let ch of upperWord) {
+            if (ch >= 'A' && ch <= 'Z') {
+                total += CROUSIAN_MAP[ch] || 0;
+            } else {
+                // non-letter characters (spaces, punctuation) – we just ignore them silently for sum
+                skipped = true;
+            }
+        }
+
+        // digital root (iterative sum of digits)
+        let root = total;
+        while (root > 9) {
+            let s = 0;
+            let temp = root;
+            while (temp > 0) {
+                s += temp % 10;
+                temp = Math.floor(temp / 10);
+            }
+            root = s;
+        }
+
+        return { total, root, skipped };
+    }
+
+    // UI elements
+    const wordInput = document.getElementById('wordInput');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultArea = document.getElementById('resultArea');
+    const displayWordSpan = document.getElementById('displayWord');
+    const fullSumSpan = document.getElementById('fullSum');
+    const digitalRootSpan = document.getElementById('digitalRoot');
+
+    function updateDisplay(word) {
+        if (!word || word.trim().length === 0) {
+            resultArea.style.display = 'none';
+            return;
+        }
+
+        const cleanWord = word.trim();
+        const { total, root, skipped } = computeNumberology(cleanWord);
+
+        // show the word as entered, but visual spacing
+        displayWordSpan.innerText = cleanWord;
+        fullSumSpan.innerText = total;
+        digitalRootSpan.innerText = root;
+
+        resultArea.style.display = 'block';
+    }
+
+    function handleCalculate() {
+        const rawWord = wordInput.value;
+        if (!rawWord.trim()) {
+            resultArea.style.display = 'none';
+            return;
+        }
+        updateDisplay(rawWord.trim());
+    }
+
+    // event listeners
+    calculateBtn.addEventListener('click', handleCalculate);
+    wordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleCalculate();
+        }
+    });
+
+    // Example buttons: fill input and auto-calculate
+    const exampleButtons = document.querySelectorAll('.example');
+    exampleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const exampleWord = btn.getAttribute('data-word');
+            wordInput.value = exampleWord;
+            handleCalculate();
+        });
+    });
+
+    // optional: initial demo with Crousmark on page load
+    window.addEventListener('load', () => {
+        wordInput.value = 'Crousmark';
+        handleCalculate();
+    });
+</script>
+</body>
+</html>
