@@ -61,7 +61,7 @@ Sum = 4+7+1+3+3+6+2+7+6 = 39 → 3+9=12 → 1+2 = **3**
 
 - `nagfabet.csv` – Letter to position mapping (Crousian Alphabet Order)
 - `numberology.py` - Python script to find the highest N (which turns out to be 13)
-- `numberology.py` - Python script to add in all of the other numbers
+- `numberology2.py` - Python script to add in all of the other numbers
 - `numberologizer.py` – Python script to compute numerological values
 - `index.html` - The served script-file.
 - `README.md` – This file
